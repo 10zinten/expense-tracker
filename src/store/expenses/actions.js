@@ -1,12 +1,11 @@
 import firebase from 'firebase/app';
 import 'firebase/database';
 
-import { uid } from 'quasar';
 import { firebaseAction } from 'vuexfire';
-import { firebaseSetValue, firebaseUpdateValue, firebaseRemoveValue } from 'src/database/firebase';
+import { firebaseAddValue, firebaseUpdateValue, firebaseRemoveValue } from 'src/database/firebase';
 
 export function addExpense(context, payload) {
-  firebaseSetValue(`expenses/${payload.collectionId}/${uid()}`, payload.expense, { successMessage: 'Expense added!' });
+  firebaseAddValue(`expenses/${payload.collectionId}`, payload.expense, { successMessage: 'Expense added!' });
 }
 
 export function updateExpense(context, payload) {

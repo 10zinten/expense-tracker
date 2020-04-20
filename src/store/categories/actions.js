@@ -1,12 +1,11 @@
 import firebase from 'firebase/app';
 import 'firebase/database';
 
-import { uid } from 'quasar';
 import { firebaseAction } from 'vuexfire';
-import { firebaseSetValue, firebaseUpdateValue, firebaseRemoveValue } from 'src/database/firebase';
+import { firebaseAddValue, firebaseUpdateValue, firebaseRemoveValue } from 'src/database/firebase';
 
 export function addCategory(context, category) {
-  firebaseSetValue(`categories/${uid()}`, category, { successMessage: 'Category added!' });
+  firebaseAddValue('categories', category, { successMessage: 'Category added!' });
 }
 
 export function updateCategory(context, payload) {

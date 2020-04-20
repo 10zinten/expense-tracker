@@ -1,12 +1,11 @@
 import firebase from 'firebase/app';
 import 'firebase/database';
 
-import { uid } from 'quasar';
 import { firebaseAction } from 'vuexfire';
-import { firebaseSetValue, firebaseUpdateValue, firebaseRemoveValue } from 'src/database/firebase';
+import { firebaseAddValue, firebaseUpdateValue, firebaseRemoveValue } from 'src/database/firebase';
 
 export function addCollection(context, collection) {
-  firebaseSetValue(`collections/${uid()}`, collection, { successMessage: 'Collection added!' });
+  firebaseAddValue('collections', collection, { successMessage: 'Collection added!' });
 }
 
 export function updateCollection(context, payload) {
