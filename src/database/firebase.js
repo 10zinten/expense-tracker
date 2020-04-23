@@ -4,20 +4,6 @@ import 'firebase/database';
 import { Notify } from 'quasar';
 import { showErrorMessage } from 'src/functions/show-error-message';
 
-export function firebaseAddValue(path, value, options = {}) {
-  return firebase
-    .database()
-    .ref(path)
-    .push()
-    .set(value, (error) => {
-      if (error) {
-        showErrorMessage(error.message);
-      } else if (options.successMessage) {
-        Notify.create(options.successMessage);
-      }
-    });
-}
-
 export function firebaseSetValue(path, value, options = {}) {
   return firebase
     .database()

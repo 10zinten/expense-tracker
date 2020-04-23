@@ -1,11 +1,12 @@
 import firebase from 'firebase/app';
 import 'firebase/database';
 
+import { uid } from 'quasar';
 import { firebaseAction } from 'vuexfire';
-import { firebaseAddValue, firebaseUpdateValue, firebaseRemoveValue } from 'src/database/firebase';
+import { firebaseSetValue, firebaseUpdateValue, firebaseRemoveValue } from 'src/database/firebase';
 
 export function addUser(context, user) {
-  firebaseAddValue('users', user, { successMessage: 'User added!' });
+  firebaseSetValue(`users/${uid()}`, user, { successMessage: 'User added!' });
 }
 
 export function updateUser(context, payload) {
