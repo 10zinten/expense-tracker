@@ -58,6 +58,22 @@ export default {
   computed: {
     ...mapGetters('collections', ['rootCollections']),
   },
+  created() {
+    console.log('ici mdr');
+    this.$store.watch(
+      () => this.$store.state.currentUser, // could also put a Getter here
+      (newValue, oldValue) => {
+        console.log('Current user has changed ma gueule !');
+        // something changed do something
+        console.log(oldValue);
+        console.log(newValue);
+      },
+      // Optional Deep if you need it
+      {
+        deep: true,
+      },
+    );
+  },
 };
 </script>
 

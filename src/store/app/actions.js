@@ -9,7 +9,7 @@ export function handleAuthStateChanged({ commit, dispatch }) {
     if (user) {
       commit('setIsSignedIn', true);
       LocalStorage.set('signedIn', true);
-      dispatch('loadData');
+      dispatch('users/loadCurrentUser', user.uid, { root: true });
       if (this.$router.currentRoute.fullPath === '/login') {
         this.$router.push('/').catch(() => { });
       }
@@ -27,6 +27,9 @@ export function login(context, { email, password }) {
   firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
+    .then(() => {
+      Loading.hide();
+    })
     .catch((error) => {
       Loading.hide();
       showErrorMessageWithTitle('Could not sign in', error.message);
@@ -44,13 +47,17 @@ export function logout() {
     });
 }
 
-export function loadData({ dispatch }) {
+export function loadData({ dispatch, rootGetters }) {
   Loading.show();
   try {
+    const currentUser = rootGetters['users/getCurrentUser'];
+
     dispatch('categories/firebaseReadData', null, { root: true });
-    dispatch('collections/firebaseReadData', null, { root: true });
-    dispatch('users/firebaseReadData', null, { root: true });
+    dispatch('collections/loadCollections', currentUser.collections, { root: true });
+    // dispatch('collections/firebaseReadData', null, { root: true });
+    // dispatch('users/firebaseReadData', null, { root: true });
   } catch (error) {
+    console.log(error);
     Loading.hide();
     showErrorMessageWithTitle('Could not load Firebase data', 'Please make sure you configured properly Firebase credentials.');
   }

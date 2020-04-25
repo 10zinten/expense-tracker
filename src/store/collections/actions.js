@@ -22,3 +22,16 @@ export const firebaseReadData = firebaseAction(
     dispatch('app/setCollectionsLoaded', true, { root: true });
   }),
 );
+
+export const loadCollections = firebaseAction(
+  ({ bindFirebaseRef, dispatch, commit }, collections) => {
+    collections.forEach((collectionId) => {
+      commit('initCollection', collectionId);
+
+      // Faire un Promise.All -> then setCollectionsLoaded
+      bindFirebaseRef(`collections.${collectionId}`, firebase.database().ref(`collections/${collectionId}`)).then(() => {
+        dispatch('app/setCollectionsLoaded', true, { root: true });
+      });
+    });
+  },
+);

@@ -7,8 +7,8 @@ export default function () {
     toolbarAction: null,
     // Resources loading
     categoriesLoaded: false,
-    collectionsLoaded: false,
-    usersLoaded: false,
+    collectionsLoaded: true,
+    usersLoaded: true,
     expensesLoaded: false,
   };
 }

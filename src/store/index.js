@@ -38,5 +38,16 @@ export default function (/* { ssrContext } */) {
     strict: process.env.DEV,
   });
 
+  Store.watch(
+    (state) => state.users.currentUser.collections,
+    (newValue, oldValue) => {
+      if (oldValue && newValue !== oldValue) {
+        console.log('AMAZING CALLBACK');
+        console.log(oldValue);
+        console.log(newValue);
+      }
+    },
+  );
+
   return Store;
 }

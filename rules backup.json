@@ -1,0 +1,28 @@
+{
+    "rules": {
+        ".read": "root.child('users').child(auth.uid).exists()",
+        ".write": "root.child('users').child(auth.uid).exists()",
+        "collections": {
+            ".read": "data.child('users').child(auth.uid).exists()"
+        }
+    }
+}
+
+
+
+{
+    "rules": {
+        "users": {
+            "$uid": {
+                ".read": "$uid == auth.uid",
+                ".write": "$uid == auth.uid"
+            }
+        },
+        "categories": {
+            ".read": true
+        },
+        "collections": {
+            ".read": "data.child('users').child(auth.uid).exists()"
+        }
+    }
+}
